@@ -1,0 +1,51 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/server.js",
+    "engines": {
+        "node": "10.16.0",
+        "npm": "6.9.0"
+    },
+    "scripts": {
+        "start": "node dist/server.js",
+        "test": "jest --forceExit --coverage --runInBand",
+        "build": "tsc",
+        "dev": "tsc-watch --onSuccess \"node dist/server.js\"",
+        "lint": "tslint -c tslint.json src/**/*.ts",
+        "update": "ncu -u"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.1.0",
+        "express": "^4.17.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.7.3"
+    },
+    "devDependencies": {
+        "@types/bcryptjs": "^2.4.2",
+        "@types/body-parser": "^1.17.1",
+        "@types/cors": "^2.8.6",
+        "@types/dotenv": "^6.1.1",
+        "@types/express": "^4.17.1",
+        "@types/faker": "^4.1.6",
+        "@types/jest": "^24.0.18",
+        "@types/jsonwebtoken": "^8.3.4",
+        "@types/mongoose": "^5.5.19",
+        "@types/node": "^12.7.11",
+        "@types/supertest": "^2.0.8",
+        "faker": "^4.1.0",
+        "jest": "^24.9.0",
+        "npm-check-updates": "^3.1.23",
+        "supertest": "^4.0.2",
+        "ts-jest": "^24.1.0",
+        "tsc-watch": "^4.0.0",
+        "tslint": "^5.20.0",
+        "typescript": "^3.6.3"
+    }
+}

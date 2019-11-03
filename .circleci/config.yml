@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:10.16
+      - image: circleci/mongo:4.0
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run: cd server && npm install
+
+      - run: cd server && npm test
