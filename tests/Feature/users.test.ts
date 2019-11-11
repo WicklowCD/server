@@ -1,12 +1,17 @@
 import request from 'supertest';
-import app from '../../src/app';
+import mongoose from 'mongoose';
 
+import app from '../../src/app';
 import User from '../../src/models/User';
 import { createUser, authUser } from '../helpers';
 
 describe('Users Tests', () => {
     beforeEach(async () => {
         await User.deleteMany({});
+    });
+
+    afterAll(async () => {
+        await mongoose.connection.close();
     });
 
     describe('GET /users', () => {

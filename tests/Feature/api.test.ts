@@ -1,4 +1,6 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
+
 import app from '../../src/app';
 
 describe('Basic API Tests', () => {
@@ -12,6 +14,10 @@ describe('Basic API Tests', () => {
 
     afterEach(() => {
         process.env = OLD_ENV;
+    });
+
+    afterAll(async () => {
+        await mongoose.connection.close();
     });
 
     describe('GET /', () => {

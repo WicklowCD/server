@@ -12,6 +12,10 @@ describe('Search Tests', () => {
         await User.deleteMany({});
     });
 
+    afterAll(async () => {
+        await mongoose.connection.close();
+    });
+
     const searchData = {
         type: 'Exercise',
         location: 'location',

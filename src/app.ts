@@ -2,6 +2,7 @@ import express, {Request, Response} from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import morgan from 'morgan';
 
 import config from './config';
 import AuthRouter from './routes/Auth';
@@ -23,6 +24,7 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(morgan('dev'));
 
 app.get('/', (req: Request, res: Response) => {
     return res.json({message: 'API Is Running Properly'});

@@ -1,4 +1,6 @@
 import request from 'supertest';
+import mongoose from 'mongoose';
+
 import app from '../../src/app';
 
 import User from '../../src/models/User';
@@ -6,6 +8,10 @@ import User from '../../src/models/User';
 describe('Auth Tests', () => {
     beforeEach(async () => {
         await User.deleteMany({});
+    });
+
+    afterAll(async () => {
+        await mongoose.connection.close();
     });
 
     const testUserDetails = {
