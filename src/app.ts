@@ -24,7 +24,10 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(cors());
-app.use(morgan('dev'));
+
+if (process.env.NODE_ENV !== 'test') {
+    app.use(morgan('dev'));
+}
 
 app.get('/', (req: Request, res: Response) => {
     return res.json({message: 'API Is Running Properly'});
