@@ -25,7 +25,7 @@ mongoose
 app.use(bodyParser.json());
 app.use(cors());
 
-if (process.env.NODE_ENV !== 'test') {
+if (!process.env.JEST_WORKER_ID) {
     app.use(morgan('dev'));
 }
 
