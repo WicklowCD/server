@@ -2,11 +2,11 @@ from flask import request
 from flask_restx import Resource, Namespace, fields
 
 from app import db
-from app.models.User import User
+from app.models.User import User, create_user
 
 ns = Namespace('auth')
 
-user_schema = ns.model(
+registration_schema = ns.model(
     'UserRegistration',
     {
         'first_name': fields.String(required=True),
@@ -19,7 +19,7 @@ user_schema = ns.model(
 
 
 class Register(Resource):
-    @ns.expect(user_schema, validate=True)
+    @ns.expect(registration_schema, validate=True)
     @ns.response(201, 'Account Created')
     def post(self):
         """Registers a new user account"""
@@ -31,9 +31,7 @@ class Register(Resource):
         phone = data.get('phone')
         password = data.get('password')
 
-        user = User(first_name=first_name, last_name=last_name, email=email, phone=phone, password=password)
-        db.session.add(user)
-        db.session.commit()
+        create_user(first_name, last_name, email, phone, password)
 
         response[
             'message'] = 'User successfully registered, you will receive an email once your registration is confirmed by an administrator'

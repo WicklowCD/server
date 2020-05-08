@@ -25,3 +25,11 @@ class User(db.Model):
         self.email = email
         self.phone = phone
         self.password = bcrypt.generate_password_hash(password, current_app.config['BCRYPT_LOG_ROUNDS']).decode()
+
+
+def create_user(first_name, last_name, email, phone, password):
+    user = User(first_name, last_name, email, phone, password)
+    db.session.add(user)
+    db.session.commit()
+
+    return user
