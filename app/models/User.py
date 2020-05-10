@@ -33,3 +33,7 @@ def create_user(first_name, last_name, email, phone, password):
     db.session.commit()
 
     return user
+
+
+def get_user_by_email(email):
+    return User.query.filter_by(email=email).first()

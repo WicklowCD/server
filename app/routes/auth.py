@@ -1,8 +1,7 @@
 from flask import request
 from flask_restx import Resource, Namespace, fields
 
-from app import db
-from app.models.User import User, create_user
+from app.models.User import create_user, get_user_by_email
 
 ns = Namespace('auth')
 
@@ -30,6 +29,13 @@ class Register(Resource):
         email = data.get('email')
         phone = data.get('phone')
         password = data.get('password')
+
+        existing_user = get_user_by_email(email)
+
+        if existing_user:
+            response['message'] = 'Email address already in use'
+
+            return response, 400
 
         create_user(first_name, last_name, email, phone, password)
 
