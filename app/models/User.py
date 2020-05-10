@@ -34,6 +34,11 @@ class User(db.Model):
     def verify_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
 
+    def activate(self):
+        self.active = True
+        db.session.commit()
+        return True
+
 
 def create_user(first_name, last_name, email, phone, password, active):
     user = User(first_name, last_name, email, phone, password, active)

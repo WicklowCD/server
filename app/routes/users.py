@@ -37,5 +37,15 @@ class User(Resource):
         return get_user_by_uuid(uuid)
 
 
+class ActivateUser(Resource):
+    @admin_required
+    @ns.response(202, 'User Activated')
+    def post(self, uuid):
+        user = get_user_by_uuid(uuid)
+        user.activate()
+        return True, 202
+
+
 ns.add_resource(Users, '')
 ns.add_resource(User, '/<uuid>')
+ns.add_resource(ActivateUser, '/<uuid>/activate')

@@ -49,3 +49,29 @@ class TestUsers(BaseTestCase):
             self.assertEqual('New', data['first_name'])
             self.assertEqual('User', data['last_name'])
             self.assertEqual('new@user.com', data['email'])
+
+    def test_admin_can_activate_a_user(self):
+        user = create_new_user('New', 'User', 'new@user.com', '0831247362', 'testPass123!')
+        admin = create_admin_user()
+        token = authenticate_user(admin)
+        with self.client:
+            res = self.client.post(
+                f'/users/{user.uuid}/activate',
+                content_type='application/json',
+                headers={'Authorization': f'Bearer {token}'}
+            )
+
+            self.assertEqual(202, res.status_code)
+
+    def test_non_admin_can_not_activate_a_user(self):
+        non_active_user = create_new_user('New', 'User', 'new@user.com', '0831247362', 'testPass123!', active=False)
+        user = create_new_user()
+        token = authenticate_user(user)
+        with self.client:
+            res = self.client.post(
+                f'/users/{non_active_user.uuid}/activate',
+                content_type='application/json',
+                headers={'Authorization': f'Bearer {token}'}
+            )
+
+            self.assert403(res)
