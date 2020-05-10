@@ -4,7 +4,7 @@ from flask_jwt_extended import create_access_token
 
 from app.models.User import create_user, get_user_by_email
 
-ns = Namespace('auth')
+ns = Namespace('Authentication')
 
 registration_schema = ns.model(
     'UserRegistration',
