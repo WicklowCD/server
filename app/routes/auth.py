@@ -46,7 +46,7 @@ class Register(Resource):
 
             return response, 400
 
-        create_user(first_name, last_name, email, phone, password)
+        create_user(first_name, last_name, email, phone, password, active=False)
 
         response[
             'message'] = 'User successfully registered, you will receive an email once your registration is confirmed by an administrator'
@@ -72,6 +72,10 @@ class Authenticate(Resource):
 
         if not user.verify_password(password):
             response['message'] = 'Email address or password incorrect'
+            return response, 400
+
+        if not user.active:
+            response['message'] = 'This account is not active, please speak to your unit commander.'
             return response, 400
 
         response['email'] = email

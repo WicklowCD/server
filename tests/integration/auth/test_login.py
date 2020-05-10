@@ -53,3 +53,19 @@ class TestLogin(BaseTestCase):
             self.assert400(res)
             self.assertIn('Email address or password incorrect', data['message'])
             self.assertNotIn('token', data)
+
+    def test_inactive_user_can_not_login(self):
+        create_new_user('Test', 'User', 'test@user.com', '0831221362', 'testPass123', False)
+        with self.client:
+            res = self.client.post(
+                '/auth/login',
+                data=json.dumps({
+                    'email': 'test@user.com',
+                    'password': 'testPass123',
+                }),
+                content_type='application/json'
+            )
+            data = json.loads(res.data.decode())
+
+            self.assert400(res)
+            self.assertIn('This account is not active, please speak to your unit commander.', data['message'])

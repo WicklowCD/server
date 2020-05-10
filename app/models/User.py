@@ -16,22 +16,24 @@ class User(db.Model):
     email = db.Column(db.String(255), nullable=False, unique=True, index=True)
     phone = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String)
+    active = db.Column(db.Boolean, default=False, nullable=False)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    def __init__(self, first_name, last_name, email, phone, password):
+    def __init__(self, first_name, last_name, email, phone, password, active):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.phone = phone
         self.password = bcrypt.generate_password_hash(password, current_app.config['BCRYPT_LOG_ROUNDS']).decode()
+        self.active = active
 
     def verify_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
 
 
-def create_user(first_name, last_name, email, phone, password):
-    user = User(first_name, last_name, email, phone, password)
+def create_user(first_name, last_name, email, phone, password, active):
+    user = User(first_name, last_name, email, phone, password, active)
     db.session.add(user)
     db.session.commit()
 
