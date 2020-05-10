@@ -3,8 +3,8 @@ from tests.base import BaseTestCase
 from tests.utils import create_new_user
 
 
-class TestUserAuthentication(BaseTestCase):
-    def test_user_can_authenticate(self):
+class TestLogin(BaseTestCase):
+    def test_user_can_login(self):
         create_new_user('Test', 'User', 'test@user.com', '0831221362', 'testPass123')
         with self.client:
             res = self.client.post(
@@ -21,7 +21,7 @@ class TestUserAuthentication(BaseTestCase):
             self.assertIn('test@user.com', data['email'])
             self.assertIn('token', data)
 
-    def test_user_can_not_authenticate_with_incorrect_password(self):
+    def test_user_can_not_login_with_incorrect_password(self):
         create_new_user('Test', 'User', 'test@user.com', '0831221362', 'testPass123')
         with self.client:
             res = self.client.post(
@@ -38,7 +38,7 @@ class TestUserAuthentication(BaseTestCase):
             self.assertIn('Email address or password incorrect', data['message'])
             self.assertNotIn('token', data)
 
-    def test_non_registered_user_can_not_authenticate(self):
+    def test_non_registered_user_can_not_login(self):
         with self.client:
             res = self.client.post(
                 '/auth/login',
