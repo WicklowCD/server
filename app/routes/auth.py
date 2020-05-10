@@ -79,7 +79,12 @@ class Authenticate(Resource):
             return response, 400
 
         response['email'] = email
-        response['token'] = create_access_token(email)
+        response['token'] = create_access_token(email, user_claims={
+            'first_name': user.first_name,
+            'last_name': user.last_name,
+            'email': user.email,
+            'role': user.app_role
+        })
 
         return response, 200
 

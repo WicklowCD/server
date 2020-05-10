@@ -17,6 +17,9 @@ class User(db.Model):
     phone = db.Column(db.String(20), nullable=False)
     password = db.Column(db.String)
     active = db.Column(db.Boolean, default=False, nullable=False)
+    app_role = db.Column(db.String(10), default='Read')
+    rank = db.Column(db.String(50), default='Volunteer')
+    first_aid = db.Column(db.String(50), default='CFR')
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
