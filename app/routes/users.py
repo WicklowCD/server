@@ -9,7 +9,6 @@ bp = Blueprint('users', __name__)
 @bp.route('', methods=['GET'])
 @admin_required
 def get_users_list():
-    print('hello')
     users = get_all_users()
     return jsonify(users_schema.dump(users))
 
