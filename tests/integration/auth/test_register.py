@@ -46,20 +46,3 @@ class TestRegistration(BaseTestCase):
 
             self.assertEqual(400, res.status_code)
             self.assertIn('Email address already in use', data['message'])
-
-    def test_fields_are_required_to_register_a_new_user(self):
-        with self.client:
-            res = self.client.post(
-                '/auth/register',
-                data=json.dumps({}),
-                content_type='application/json'
-            )
-            data = json.loads(res.data.decode())
-
-            self.assertEqual(400, res.status_code)
-            self.assertIn('Input payload validation failed', data['message'])
-            self.assertIn("'email' is a required property", data['errors']['email'])
-            self.assertIn("'password' is a required property", data['errors']['password'])
-            self.assertIn("'phone' is a required property", data['errors']['phone'])
-            self.assertIn("'first_name' is a required property", data['errors']['first_name'])
-            self.assertIn("'last_name' is a required property", data['errors']['last_name'])

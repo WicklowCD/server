@@ -14,10 +14,11 @@ python-dotenv = "*"
 flask-bcrypt = "*"
 gunicorn = "*"
 psycopg2 = "*"
-flask-restx = "*"
 flask-cors = "*"
 flask-jwt-extended = "*"
 pyjwt = "*"
+marshmallow-sqlalchemy = "*"
+flask-marshmallow = "*"
 
 [requires]
 python_version = "3.8"

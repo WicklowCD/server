@@ -12,7 +12,6 @@ class TestUsers(BaseTestCase):
         with self.client:
             res = self.client.get(
                 '/users',
-                content_type='application/json',
                 headers={'Authorization': f'Bearer {token}'}
             )
             data = json.loads(res.data.decode())
