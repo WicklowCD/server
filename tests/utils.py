@@ -1,5 +1,9 @@
+from datetime import datetime
+
 from flask_jwt_extended import create_access_token
+
 from app.models.User import create_user
+from app.models.Search import create_new_search
 from app import db
 
 
@@ -25,3 +29,9 @@ def authenticate_user(user):
         'email': user.email,
         'role': user.app_role
     })
+
+
+def create_search():
+    return create_new_search('Test Location', str(datetime.today()), datetime.utcnow().strftime('%H:%M'), 'Incident',
+                             'Commanding Officer', 'Search Manager', 'Safety Officer', 'Section Leader',
+                             'Radio Operator', 'Scribe')
