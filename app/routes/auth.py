@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import create_access_token
 
@@ -25,7 +27,8 @@ def register_user():
 
     create_user(first_name, last_name, email, phone, password, active=False)
 
-    response['message'] = 'User successfully registered, you will receive an email once your registration is confirmed by an administrator'
+    response[
+        'message'] = 'User successfully registered, you will receive an email once your registration is confirmed by an administrator'
 
     return jsonify(response), 201
 
@@ -52,7 +55,7 @@ def login_user():
         return jsonify(response), 400
 
     response['email'] = email
-    response['token'] = create_access_token(email, user_claims={
+    response['token'] = create_access_token(email, expires_delta=timedelta(days=1), user_claims={
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
