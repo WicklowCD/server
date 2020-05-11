@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 from app.models.User import get_all_users, get_user_by_uuid, user_schema, users_schema
 from app.decorators import admin_required, user_required
@@ -18,6 +18,24 @@ def get_users_list():
 def get_user(uuid):
     user = get_user_by_uuid(uuid)
     return jsonify(user_schema.dump(user))
+
+
+@bp.route('/<uuid>', methods=['PUT'])
+@admin_required
+def update_user(uuid):
+    user = get_user_by_uuid(uuid)
+    data = request.get_json()
+    user.update({
+        'first_name': data.get('first_name'),
+        'last_name': data.get('last_name'),
+        'email': data.get('email'),
+        'phone': data.get('phone'),
+        'active': data.get('active'),
+        'rank': data.get('rank'),
+        'first_aid': data.get('first_aid'),
+        'app_role': data.get('app_role'),
+    })
+    return jsonify({}), 202
 
 
 @bp.route('/<uuid>/activate', methods=['POST'])

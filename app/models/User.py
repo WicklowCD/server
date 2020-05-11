@@ -39,6 +39,18 @@ class User(db.Model):
         db.session.commit()
         return True
 
+    def update(self, data):
+        self.first_name = data['first_name']
+        self.last_name = data['last_name']
+        self.email = data['email']
+        self.phone = data['phone']
+        self.active = data['active']
+        self.app_role = data['app_role']
+        self.rank = data['rank']
+        self.first_aid = data['first_aid']
+        db.session.commit()
+        return True
+
 
 class UserSchema(ma.SQLAlchemySchema):
     class Meta:
