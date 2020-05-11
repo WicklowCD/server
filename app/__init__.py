@@ -29,8 +29,10 @@ def create_app(config_class=Config):
 
     from app.routes.auth import bp as auth_bp
     from app.routes.users import bp as users_bp
+    from app.routes.searches import bp as searches_bp
 
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(users_bp, url_prefix='/users')
+    app.register_blueprint(searches_bp, url_prefix='/searches')
 
     return app
