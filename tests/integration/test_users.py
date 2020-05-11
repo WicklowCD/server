@@ -49,6 +49,16 @@ class TestUsers(BaseTestCase):
             self.assertEqual('User', data['last_name'])
             self.assertEqual('new@user.com', data['email'])
 
+    def test_guest_can_not_view_details_for_a_user(self):
+        user = create_new_user('New', 'User', 'new@user.com', '0831247362', 'testPass123!')
+        with self.client:
+            res = self.client.get(
+                f'/users/{user.uuid}',
+                content_type='application/json',
+            )
+
+            self.assert401(res)
+
     def test_admin_can_activate_a_user(self):
         user = create_new_user('New', 'User', 'new@user.com', '0831247362', 'testPass123!')
         admin = create_admin_user()
