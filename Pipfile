@@ -13,12 +13,12 @@ flask-migrate = "*"
 python-dotenv = "*"
 flask-bcrypt = "*"
 gunicorn = "*"
-psycopg2 = "*"
 flask-cors = "*"
 flask-jwt-extended = "*"
 pyjwt = "*"
 marshmallow-sqlalchemy = "*"
 flask-marshmallow = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.8"
