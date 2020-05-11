@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from app.models.Search import create_new_search, get_all_searches, searches_schema
+from app.models.Search import create_new_search, get_all_searches, searches_schema, search_schema, get_search_by_uuid
 from app.decorators import admin_required, user_required
 
 bp = Blueprint('searches', __name__)
@@ -31,3 +31,10 @@ def create_search():
 def get_searches():
     searches = get_all_searches()
     return jsonify(searches_schema.dump(searches))
+
+
+@bp.route('/<uuid>', methods=['GET'])
+@user_required
+def get_search(uuid):
+    search = get_search_by_uuid(uuid)
+    return jsonify(search_schema.dump(search))

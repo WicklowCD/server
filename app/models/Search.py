@@ -69,3 +69,7 @@ def create_new_search(location, date, start_time, type, oic, sm, so, sl, ro, scr
 
 def get_all_searches():
     return Search.query.all()
+
+
+def get_search_by_uuid(uuid):
+    return Search.query.filter_by(uuid=uuid).first()
