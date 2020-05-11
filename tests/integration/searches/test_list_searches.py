@@ -1,5 +1,4 @@
 import json
-from datetime import datetime
 
 from tests.base import BaseTestCase
 from tests.utils import create_admin_user, authenticate_user, create_search

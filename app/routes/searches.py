@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 
-from app.models.Search import create_new_search, get_all_searches, searches_schema, search_schema, get_search_by_uuid
+from app.models.Search import create_new_search, get_all_searches, get_search_by_uuid
+from app.schemas.search import searches_schema, search_schema
 from app.decorators import admin_required, user_required
 
 bp = Blueprint('searches', __name__)
