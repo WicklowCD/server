@@ -48,13 +48,14 @@ def get_search(uuid):
 def add_search_team(search_uuid):
     search = get_search_by_uuid(search_uuid)
     data = request.get_json()
+    name = data.get('name')
     team_leader = data.get('team_leader')
     medic = data.get('medic')
     responder_1 = data.get('responder_1')
     responder_2 = data.get('responder_2')
     responder_3 = data.get('responder_3')
 
-    team = add_team(search, team_leader, medic, responder_1, responder_2, responder_3)
+    team = add_team(search, name, team_leader, medic, responder_1, responder_2, responder_3)
 
     return jsonify({'id': team.uuid}), 201
 

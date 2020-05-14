@@ -1,5 +1,6 @@
 from app import ma
 from app.models.Search import Search
+from app.schemas.search_team import search_teams_schema
 
 
 class SearchSchema(ma.SQLAlchemySchema):
@@ -19,6 +20,10 @@ class SearchSchema(ma.SQLAlchemySchema):
     ro = ma.auto_field()
     scribe = ma.auto_field()
     notes = ma.auto_field()
+    teams = ma.Nested(search_teams_schema)
+    radios = ma.auto_field()
+    comms_log = ma.auto_field()
+    search_log = ma.auto_field()
 
 
 search_schema = SearchSchema()

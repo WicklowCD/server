@@ -2,8 +2,11 @@ import uuid
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID
 
-from app.models.SearchTeam import SearchTeam
 from app import db
+from app.models.SearchTeam import SearchTeam
+from app.models.RadioAssignment import RadioAssignment
+from app.models.SearchLog import SearchLog
+from app.models.CommsLog import CommsLog
 
 
 class Search(db.Model):
@@ -23,8 +26,13 @@ class Search(db.Model):
     ro = db.Column(db.String(255))
     scribe = db.Column(db.String(255))
     notes = db.Column(db.Text)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     teams = db.relationship('SearchTeam', backref='search', lazy='dynamic')
+    radios = db.relationship('RadioAssignment', backref='search', lazy='dynamic')
+    comms_log = db.relationship('CommsLog', backref='search', lazy='dynamic')
+    search_log = db.relationship('SearchLog', backref='search', lazy='dynamic')
 
     def __init__(self, location, date, start_time, type, oic, sm, so, sl, ro, scribe):
         self.location = location

@@ -9,6 +9,7 @@ class SearchTeamSchema(ma.SQLAlchemySchema):
     uuid = ma.auto_field()
     search_id = ma.auto_field()
     team_leader = ma.auto_field()
+    name = ma.auto_field()
     medic = ma.auto_field()
     responder_1 = ma.auto_field()
     responder_2 = ma.auto_field()
