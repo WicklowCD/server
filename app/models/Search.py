@@ -2,7 +2,8 @@ import uuid
 from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID
 
-from app import db, ma
+from app.models.SearchTeam import SearchTeam
+from app import db
 
 
 class Search(db.Model):
@@ -22,6 +23,8 @@ class Search(db.Model):
     ro = db.Column(db.String(255))
     scribe = db.Column(db.String(255))
     notes = db.Column(db.Text)
+
+    teams = db.relationship('SearchTeam', backref='search', lazy='dynamic')
 
     def __init__(self, location, date, start_time, type, oic, sm, so, sl, ro, scribe):
         self.location = location
