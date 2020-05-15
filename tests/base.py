@@ -7,7 +7,7 @@ from config import Config
 class TestConfig(Config):
     FLASK_ENV = 'testing'
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/wwcd_test'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/wicklowcd_test'
     BCRYPT_LOG_ROUNDS = 4
     SECRET_KEY = 'NotSoSecret'
 
