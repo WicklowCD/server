@@ -2,8 +2,10 @@ from flask import Blueprint, request, jsonify
 
 from app.models.SearchTeam import add_team, get_team_by_uuid
 from app.models.Search import create_new_search, get_all_searches, get_search_by_uuid
+from app.models.SearchLog import new_search_log, get_search_log_by_uuid
 from app.schemas.search import searches_schema, search_schema
 from app.schemas.search_team import search_teams_schema
+from app.schemas.search_log import search_logs_schema
 from app.decorators import admin_required, user_required, write_required
 
 bp = Blueprint('searches', __name__)
@@ -81,6 +83,46 @@ def update_search_team(search_uuid, team_uuid):
         'responder_1': data.get('responder_1'),
         'responder_2': data.get('responder_2'),
         'responder_3': data.get('responder_1'),
+    })
+
+    return jsonify({}), 202
+
+
+@bp.route('/<search_uuid>/logs/search', methods=['POST'])
+@user_required
+def create_search_log(search_uuid):
+    data = request.get_json()
+    search = get_search_by_uuid(search_uuid)
+    team = data.get('team')
+    area = data.get('area')
+    start_time = data.get('start_time')
+    end_time = data.get('end_time')
+    notes = data.get('notes')
+    log = new_search_log(search, team, area, start_time, end_time, notes)
+
+    return jsonify({'id': log.uuid}), 201
+
+
+@bp.route('/<search_uuid>/logs/search', methods=['GET'])
+@user_required
+def get_search_logs_list(search_uuid):
+    search = get_search_by_uuid(search_uuid)
+    logs = search.search_log.all()
+    return jsonify(search_logs_schema.dump(logs))
+
+
+@bp.route('/<search_uuid>/logs/search/<log_uuid>', methods=['PUT'])
+@user_required
+def update_search_log(search_uuid, log_uuid):
+    data = request.get_json()
+    search = get_search_by_uuid(search_uuid)
+    log = get_search_log_by_uuid(log_uuid, search.id)
+    log.update({
+        'team': data.get('team'),
+        'area': data.get('area'),
+        'start_time': data.get('start_time'),
+        'end_time': data.get('end_time'),
+        'notes': data.get('notes'),
     })
 
     return jsonify({}), 202
