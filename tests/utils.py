@@ -6,6 +6,7 @@ from app.models.User import create_user
 from app.models.Search import create_new_search
 from app.models.SearchTeam import add_team
 from app.models.SearchLog import new_search_log
+from app.models.RadioAssignment import new_radio_assignment
 from app import db
 
 
@@ -45,3 +46,7 @@ def create_search_team(search):
 
 def create_search_log(search):
     return new_search_log(search, 'Team 1', 'Area', '14:00')
+
+
+def create_radio_assignment(search):
+    return new_radio_assignment(search, 'WW01', '53531', 'Test User')

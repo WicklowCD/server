@@ -3,9 +3,11 @@ from flask import Blueprint, request, jsonify
 from app.models.SearchTeam import add_team, get_team_by_uuid
 from app.models.Search import create_new_search, get_all_searches, get_search_by_uuid
 from app.models.SearchLog import new_search_log, get_search_log_by_uuid
+from app.models.RadioAssignment import new_radio_assignment
 from app.schemas.search import searches_schema, search_schema
 from app.schemas.search_team import search_teams_schema
 from app.schemas.search_log import search_logs_schema
+from app.schemas.radio_assignment import radio_assignments_schema
 from app.decorators import admin_required, user_required, write_required
 
 bp = Blueprint('searches', __name__)
@@ -126,3 +128,24 @@ def update_search_log(search_uuid, log_uuid):
     })
 
     return jsonify({}), 202
+
+
+@bp.route('/<search_uuid>/radios', methods=['POST'])
+@user_required
+def create_radio_assignment(search_uuid):
+    data = request.get_json()
+    search = get_search_by_uuid(search_uuid)
+    call_sign = data.get('call_sign')
+    tetra_number = data.get('tetra_number')
+    name = data.get('name')
+    assignment = new_radio_assignment(search, call_sign, tetra_number, name)
+
+    return jsonify({'id': assignment.uuid}), 201
+
+
+@bp.route('/<search_uuid>/radios', methods=['GET'])
+@user_required
+def get_radio_assignments(search_uuid):
+    search = get_search_by_uuid(search_uuid)
+    assignments = search.radios.all()
+    return jsonify(radio_assignments_schema.dump(assignments)), 200

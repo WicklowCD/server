@@ -2,6 +2,7 @@ from app import ma
 from app.models.Search import Search
 from app.schemas.search_team import search_teams_schema
 from app.schemas.search_log import search_logs_schema
+from app.schemas.radio_assignment import radio_assignments_schema
 
 
 class SearchSchema(ma.SQLAlchemySchema):
@@ -22,7 +23,7 @@ class SearchSchema(ma.SQLAlchemySchema):
     scribe = ma.auto_field()
     notes = ma.auto_field()
     teams = ma.Nested(search_teams_schema)
-    radios = ma.auto_field()
+    radios = ma.Nested(radio_assignments_schema)
     comms_log = ma.auto_field()
     search_log = ma.Nested(search_logs_schema)
 
