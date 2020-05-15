@@ -29,6 +29,16 @@ class SearchTeam(db.Model):
         self.responder_2 = responder_2
         self.responder_3 = responder_3
 
+    def update(self, data):
+        self.name = data['name']
+        self.team_leader = data['team_leader']
+        self.medic = data['medic']
+        self.responder_1 = data['responder_1']
+        self.responder_2 = data['responder_2']
+        self.responder_3 = data['responder_3']
+        db.session.commit()
+        return True
+
 
 def add_team(search, name, team_leader, medic, responder_1, responder_2, responder_3):
     team = SearchTeam(search, name, team_leader, medic, responder_1, responder_2, responder_3)
@@ -36,3 +46,7 @@ def add_team(search, name, team_leader, medic, responder_1, responder_2, respond
     db.session.commit()
 
     return team
+
+
+def get_team_by_uuid(uuid, search_id):
+    return SearchTeam.query.filter_by(uuid=uuid).filter_by(search_id=search_id).first()

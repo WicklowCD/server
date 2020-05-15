@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 
-from app.models.SearchTeam import add_team
+from app.models.SearchTeam import add_team, get_team_by_uuid
 from app.models.Search import create_new_search, get_all_searches, get_search_by_uuid
 from app.schemas.search import searches_schema, search_schema
 from app.schemas.search_team import search_teams_schema
@@ -66,3 +66,21 @@ def get_search_teams_list(search_uuid):
     search = get_search_by_uuid(search_uuid)
     teams = search.teams.all()
     return jsonify(search_teams_schema.dump(teams))
+
+
+@bp.route('/<search_uuid>/teams/<team_uuid>', methods=['PUT'])
+@user_required
+def update_search_team(search_uuid, team_uuid):
+    data = request.get_json()
+    search = get_search_by_uuid(search_uuid)
+    team = get_team_by_uuid(team_uuid, search.id)
+    team.update({
+        'name': data.get('name'),
+        'team_leader': data.get('team_leader'),
+        'medic': data.get('medic'),
+        'responder_1': data.get('responder_1'),
+        'responder_2': data.get('responder_2'),
+        'responder_3': data.get('responder_1'),
+    })
+
+    return jsonify({}), 202

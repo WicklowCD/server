@@ -4,6 +4,7 @@ from flask_jwt_extended import create_access_token
 
 from app.models.User import create_user
 from app.models.Search import create_new_search
+from app.models.SearchTeam import add_team
 from app import db
 
 
@@ -35,3 +36,7 @@ def create_search():
     return create_new_search('Test Location', str(datetime.today()), datetime.utcnow().strftime('%H:%M'), 'Incident',
                              'Commanding Officer', 'Search Manager', 'Safety Officer', 'Section Leader',
                              'Radio Operator', 'Scribe')
+
+
+def create_search_team(search):
+    return add_team(search, 'Search Team', 'Team Leader', 'Medic', 'Responder 1', 'Responder 2', 'Responder 3')
