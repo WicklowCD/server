@@ -4,6 +4,7 @@ from app.models.SearchTeam import add_team, get_team_by_uuid
 from app.models.Search import create_new_search, get_all_searches, get_search_by_uuid
 from app.models.SearchLog import new_search_log, get_search_log_by_uuid
 from app.models.RadioAssignment import new_radio_assignment
+from app.models.CommsLog import add_comms_log
 from app.schemas.search import searches_schema, search_schema
 from app.schemas.search_team import search_teams_schema
 from app.schemas.search_log import search_logs_schema
@@ -149,3 +150,16 @@ def get_radio_assignments(search_uuid):
     search = get_search_by_uuid(search_uuid)
     assignments = search.radios.all()
     return jsonify(radio_assignments_schema.dump(assignments)), 200
+
+
+@bp.route('/<search_uuid>/logs/comms', methods=['POST'])
+def create_comms_log(search_uuid):
+    search = get_search_by_uuid(search_uuid)
+    data = request.get_json()
+    time = data.get('time')
+    call_sign = data.get('call_sign')
+    message = data.get('message')
+    action = data.get('action')
+    log = add_comms_log(search, time, call_sign, message, action)
+
+    return jsonify({'id': log.uuid}), 201

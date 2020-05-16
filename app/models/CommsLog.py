@@ -24,3 +24,11 @@ class CommsLog(db.Model):
         self.call_sign = call_sign
         self.message = message
         self.action = action
+
+
+def add_comms_log(search, time, call_sign, message, action):
+    log = CommsLog(search, time, call_sign, message, action)
+    db.session.add(log)
+    db.session.commit()
+
+    return log
