@@ -9,6 +9,7 @@ from app.schemas.search import searches_schema, search_schema
 from app.schemas.search_team import search_teams_schema
 from app.schemas.search_log import search_logs_schema
 from app.schemas.radio_assignment import radio_assignments_schema
+from app.schemas.comms_log import comms_logs_schema
 from app.decorators import admin_required, user_required, write_required
 
 bp = Blueprint('searches', __name__)
@@ -163,3 +164,11 @@ def create_comms_log(search_uuid):
     log = add_comms_log(search, time, call_sign, message, action)
 
     return jsonify({'id': log.uuid}), 201
+
+
+@bp.route('/<search_uuid>/logs/comms')
+def get_comms_logs(search_uuid):
+    search = get_search_by_uuid(search_uuid)
+    logs = search.comms_log.all()
+
+    return jsonify(comms_logs_schema.dump(logs)), 200

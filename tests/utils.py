@@ -7,6 +7,7 @@ from app.models.Search import create_new_search
 from app.models.SearchTeam import add_team
 from app.models.SearchLog import new_search_log
 from app.models.RadioAssignment import new_radio_assignment
+from app.models.CommsLog import add_comms_log
 from app import db
 
 
@@ -50,3 +51,7 @@ def create_search_log(search):
 
 def create_radio_assignment(search):
     return new_radio_assignment(search, 'WW01', '53531', 'Test User')
+
+
+def create_comms_log(search):
+    return add_comms_log(search, '14:00', 'WW01', 'Test Message', 'No Action Required')
