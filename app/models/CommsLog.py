@@ -17,3 +17,10 @@ class CommsLog(db.Model):
     action = db.Column(db.Text)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __init__(self, search, time, call_sign, message, action):
+        self.search = search
+        self.time = time
+        self.call_sign = call_sign
+        self.message = message
+        self.action = action
