@@ -46,6 +46,13 @@ class Search(db.Model):
         self.ro = ro
         self.scribe = scribe
 
+    def end(self, end_time, notes):
+        self.end_time = end_time
+        self.notes = notes
+        db.session.commit()
+
+        return True
+
 
 def create_new_search(location, date, start_time, type, oic, sm, so, sl, ro, scribe):
     search = Search(location, date, start_time, type, oic, sm, so, sl, ro, scribe)

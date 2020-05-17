@@ -172,3 +172,14 @@ def get_comms_logs(search_uuid):
     logs = search.comms_log.all()
 
     return jsonify(comms_logs_schema.dump(logs)), 200
+
+
+@bp.route('/<search_uuid>/end', methods=['POST'])
+def end_search(search_uuid):
+    search = get_search_by_uuid(search_uuid)
+    data = request.get_json()
+    end_time = data.get('end_time')
+    notes = data.get('notes')
+    search.end(end_time, notes)
+
+    return jsonify({}), 202
