@@ -20,6 +20,7 @@ pyjwt = "*"
 marshmallow-sqlalchemy = "*"
 flask-marshmallow = "*"
 psycopg2-binary = "*"
+sentry-sdk = {extras = ["flask"],version = "*"}
 
 [requires]
 python_version = "3.8"

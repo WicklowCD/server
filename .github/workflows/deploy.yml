@@ -16,10 +16,20 @@ jobs:
           node-version: '10.x'
       - run: npm install
       - run: npm test
-      - id: deploy
-        name: Deploy to dokku
+      - name: Deploy to dokku
         uses: idoberko2/dokku-deploy-github-action@v1
         with:
-            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-            dokku-host: 'srv2.markrailton.com'
-            app-name: 'api.wwcd.pw'
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          dokku-host: 'srv2.markrailton.com'
+          app-name: 'api.wwcd.pw'
+
+      - name: Create a Sentry.io release
+        uses: tclindner/sentry-releases-action@v1.0.0
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+            SENTRY_ORG: mark-railton
+            SENTRY_PROJECT: wwcd-api-production
+        with:
+          tagName: ${{ github.sha }}
+          environment: production
+

@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy.dialects.postgresql import UUID
 from flask import current_app
 
-from app import db, bcrypt, ma
+from app import db, bcrypt
 
 
 class User(db.Model):
