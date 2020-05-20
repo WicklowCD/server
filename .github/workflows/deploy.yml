@@ -42,6 +42,7 @@ jobs:
           FLASK_ENV: testing
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
