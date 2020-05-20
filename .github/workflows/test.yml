@@ -1,9 +1,9 @@
 name: Test
 
-on: 
+on:
   push:
-    branches-ignore:
-      - master
+    branches:
+      - '*'
   pull_request:
     branches:
       - '*'
@@ -11,11 +11,33 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11.6-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: wicklowcd_test
+        ports:
+          - 5432:5432
+        # needed because the postgres container does not provide a healthcheck
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-      - uses: wbari/start-mongoDB@v0.2
+      - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
         with:
-          node-version: '10.x'
-      - run: npm install
-      - run: npm test
+          python-version: 3.8
+
+      - name: Install dependencies with pipenv
+        run: |
+          pip install pipenv
+          pipenv install --deploy --dev
+        env:
+          SECRET_KEY: somethingReallySecret
+          FLASK_ENV: testing
+
+      - name: Run Test suite
+        run: pipenv run python manage.py test
