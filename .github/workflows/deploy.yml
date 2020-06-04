@@ -27,16 +27,15 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install dependencies with pipenv
+      - name: Install dependencies with pip
         run: |
-          pip install pipenv
-          pipenv install --deploy --dev
+          pip install -r dev-requirements.txt
         env:
           SECRET_KEY: somethingReallySecret
           FLASK_ENV: testing
 
       - name: Run Test suite
-        run: pipenv run python manage.py test
+        run: python manage.py test
         env:
           SECRET_KEY: somethingReallySecret
           FLASK_ENV: testing
