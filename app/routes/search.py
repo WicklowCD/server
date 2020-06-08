@@ -5,6 +5,7 @@ from app.models.Search import create_new_search, get_all_searches, get_search_by
 from app.models.SearchLog import new_search_log, get_search_log_by_uuid
 from app.models.RadioAssignment import new_radio_assignment
 from app.models.CommsLog import add_comms_log
+from app.models.TechnicalTeam import add_technical_team
 from app.schemas.search import searches_schema, search_schema
 from app.schemas.search_team import search_teams_schema
 from app.schemas.search_log import search_logs_schema
@@ -164,6 +165,22 @@ def create_comms_log(search_uuid):
     log = add_comms_log(search, time, call_sign, message, action)
 
     return jsonify({'id': log.uuid}), 201
+
+
+@bp.route('/<search_uuid>/technical', methods=['POST'])
+def create_technical_team(search_uuid):
+    search = get_search_by_uuid(search_uuid)
+    data = request.get_json()
+    name = data.get('name')
+    equipment_type = data.get('equipment_type')
+    member_1 = data.get('member_1')
+    member_2 = data.get('member_2')
+    member_3 = data.get('member_3')
+    notes = data.get('notes')
+
+    team = add_technical_team(search, name, equipment_type, member_1, member_2, member_3, notes)
+
+    return jsonify({'id': team.uuid}), 201
 
 
 @bp.route('/<search_uuid>/logs/comms')
