@@ -7,18 +7,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:11.6-alpine
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_USER: postgres
-          POSTGRES_DB: wicklowcd_test
-        ports:
-          - 5432:5432
-        # needed because the postgres container does not provide a healthcheck
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
       - uses: actions/checkout@v2
 
@@ -27,41 +15,39 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install dependencies with pip
+      - name: Install dependencies with pipenv
         run: |
-          pip install -r dev-requirements.txt
-        env:
-          SECRET_KEY: somethingReallySecret
-          FLASK_ENV: testing
+          pip install pipenv
+          pipenv install --deploy --dev
 
       - name: Run Test suite
-        run: python manage.py test
         env:
           SECRET_KEY: somethingReallySecret
           FLASK_ENV: testing
+        run: pipenv run make cov
 
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Deploy to dokku
-        uses: idoberko2/dokku-deploy-github-action@v1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-          dokku-host: 'srv2.markrailton.com'
-          app-name: 'api.wwcd.pw'
-          git-push-flags: '--force'
-
-      - name: Create a Sentry.io release
-        uses: tclindner/sentry-releases-action@v1.0.0
-        env:
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: mark-railton
-          SENTRY_PROJECT: wwcd-api-production
-        with:
-          tagName: ${{ github.sha }}
-          environment: production
+#  deploy:
+#    needs: test
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#        with:
+#          fetch-depth: 0
+#
+#      - name: Deploy to dokku
+#        uses: idoberko2/dokku-deploy-github-action@v1
+#        with:
+#          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+#          dokku-host: 'srv2.markrailton.com'
+#          app-name: 'api.wwcd.pw'
+#          git-push-flags: '--force'
+#
+#      - name: Create a Sentry.io release
+#        uses: tclindner/sentry-releases-action@v1.0.0
+#        env:
+#          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+#          SENTRY_ORG: mark-railton
+#          SENTRY_PROJECT: wwcd-api-production
+#        with:
+#          tagName: ${{ github.sha }}
+#          environment: production
