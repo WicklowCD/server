@@ -1,7 +1,12 @@
 import json
 
 from tests.base import BaseTestCase
-from tests.utils import create_admin_user, authenticate_user, create_search, create_search_log
+from tests.utils import (
+    create_admin_user,
+    authenticate_user,
+    create_search,
+    create_search_log,
+)
 
 
 class TestSearchLogs(BaseTestCase):
@@ -12,14 +17,16 @@ class TestSearchLogs(BaseTestCase):
 
         with self.client:
             res = self.client.post(
-                f'/searches/{search.uuid}/logs/search',
-                data=json.dumps({
-                    'team': 'Team 1',
-                    'area': 'Search Area',
-                    'start_time': '12:00',
-                }),
-                content_type='application/json',
-                headers={'Authorization': f'Bearer {token}'}
+                f"/searches/{search.uuid}/logs/search",
+                data=json.dumps(
+                    {
+                        "team": "Team 1",
+                        "area": "Search Area",
+                        "start_time": "12:00",
+                    }
+                ),
+                content_type="application/json",
+                headers={"Authorization": f"Bearer {token}"},
             )
 
             self.assertEqual(201, res.status_code)
@@ -33,15 +40,15 @@ class TestSearchLogs(BaseTestCase):
 
         with self.client:
             res = self.client.get(
-                f'/searches/{search.uuid}/logs/search',
-                content_type='application/json',
-                headers={'Authorization': f'Bearer {token}'}
+                f"/searches/{search.uuid}/logs/search",
+                content_type="application/json",
+                headers={"Authorization": f"Bearer {token}"},
             )
             data = json.loads(res.data.decode())
 
             self.assert200(res)
-            self.assertEqual(log1.team, data[0]['team'])
-            self.assertEqual(log2.start_time, data[0]['start_time'])
+            self.assertEqual(log1.team, data[0]["team"])
+            self.assertEqual(log2.start_time, data[0]["start_time"])
 
     def test_user_can_update_a_search_log(self):
         admin = create_admin_user()
@@ -51,16 +58,18 @@ class TestSearchLogs(BaseTestCase):
 
         with self.client:
             res = self.client.put(
-                f'/searches/{search.uuid}/logs/search/{log.uuid}',
-                data=json.dumps({
-                    'team': log.team,
-                    'area': log.area,
-                    'start_time': log.start_time,
-                    'end_time': '15:00',
-                    'notes': 'Nothing Found'
-                }),
-                content_type='application/json',
-                headers={'Authorization': f'Bearer {token}'}
+                f"/searches/{search.uuid}/logs/search/{log.uuid}",
+                data=json.dumps(
+                    {
+                        "team": log.team,
+                        "area": log.area,
+                        "start_time": log.start_time,
+                        "end_time": "15:00",
+                        "notes": "Nothing Found",
+                    }
+                ),
+                content_type="application/json",
+                headers={"Authorization": f"Bearer {token}"},
             )
 
             self.assertEqual(202, res.status_code)

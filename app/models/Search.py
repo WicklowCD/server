@@ -1,6 +1,5 @@
 import uuid
 from datetime import datetime
-from sqlalchemy.dialects.postgresql import UUID
 
 from app import db
 from app.models.SearchTeam import SearchTeam
@@ -10,12 +9,12 @@ from app.models.CommsLog import CommsLog
 
 
 class Search(db.Model):
-    __tablename__ = 'searches'
+    __tablename__ = "searches"
 
     id = db.Column(db.Integer, primary_key=True)
-    uuid = db.Column(UUID(as_uuid=True), unique=True, nullable=False, default=uuid.uuid4)
+    uuid = db.Column(db.String(255), unique=True, nullable=False)
     location = db.Column(db.String(255), nullable=False)
-    date = db.Column(db.Date, default=datetime.today)
+    date = db.Column(db.String(20))
     start_time = db.Column(db.String(10), nullable=False)
     end_time = db.Column(db.String(10), nullable=True)
     type = db.Column(db.String(255))
@@ -26,17 +25,22 @@ class Search(db.Model):
     ro = db.Column(db.String(255))
     scribe = db.Column(db.String(255))
     notes = db.Column(db.Text)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    teams = db.relationship('SearchTeam', backref='search', lazy='dynamic')
-    radios = db.relationship('RadioAssignment', backref='search', lazy='dynamic')
-    comms_log = db.relationship('CommsLog', backref='search', lazy='dynamic')
-    search_log = db.relationship('SearchLog', backref='search', lazy='dynamic')
+    teams = db.relationship("SearchTeam", backref="search", lazy="dynamic")
+    radios = db.relationship("RadioAssignment", backref="search", lazy="dynamic")
+    comms_log = db.relationship("CommsLog", backref="search", lazy="dynamic")
+    search_log = db.relationship("SearchLog", backref="search", lazy="dynamic")
 
     def __init__(self, location, date, start_time, type, oic, sm, so, sl, ro, scribe):
+        self.uuid = str(uuid.uuid4())
         self.location = location
-        self.date = date
+        self.date = datetime.strptime(date, "%Y-%m-%dT%H:%M:%S.%fZ").strftime(
+            "%Y-%m-%d"
+        )
         self.start_time = start_time
         self.type = type
         self.oic = oic

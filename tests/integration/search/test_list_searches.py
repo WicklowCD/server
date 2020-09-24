@@ -13,12 +13,12 @@ class TestListSearches(BaseTestCase):
 
         with self.client:
             res = self.client.get(
-                '/searches',
-                content_type='application/json',
-                headers={'Authorization': f'Bearer {token}'}
+                "/searches",
+                content_type="application/json",
+                headers={"Authorization": f"Bearer {token}"},
             )
             data = json.loads(res.data.decode())
 
             self.assert200(res)
-            self.assertIn(search1.location, data[0]['location'])
-            self.assertIn(search2.oic, data[1]['oic'])
+            self.assertIn(search1.location, data[0]["location"])
+            self.assertIn(search2.oic, data[1]["oic"])

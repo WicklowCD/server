@@ -7,3 +7,4 @@ coverage
 .travis/*.key.pub
 __pycache__/
 venv
+.coverage

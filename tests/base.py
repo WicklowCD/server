@@ -5,11 +5,11 @@ from config import Config
 
 
 class TestConfig(Config):
-    FLASK_ENV = 'testing'
+    FLASK_ENV = "testing"
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:postgres@localhost:5432/wicklowcd_test'
+    SQLALCHEMY_DATABASE_URI = "sqlite://"
     BCRYPT_LOG_ROUNDS = 4
-    SECRET_KEY = 'NotSoSecret'
+    SECRET_KEY = "NotSoSecret"
 
 
 class BaseTestCase(TestCase):
