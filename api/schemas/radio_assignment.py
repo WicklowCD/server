@@ -1,5 +1,5 @@
-from app import ma
-from app.models.RadioAssignment import RadioAssignment
+from api import ma
+from api.models.RadioAssignment import RadioAssignment
 
 
 class RadioAssignmentSchema(ma.SQLAlchemySchema):

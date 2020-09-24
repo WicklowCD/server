@@ -1,5 +1,5 @@
-from app import ma
-from app.models.SearchLog import SearchLog
+from api import ma
+from api.models.SearchLog import SearchLog
 
 
 class SearchLogSchema(ma.SQLAlchemySchema):

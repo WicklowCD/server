@@ -7,7 +7,7 @@ class TestRegistration(BaseTestCase):
     def test_new_user_can_register(self):
         with self.client:
             res = self.client.post(
-                "/auth/register",
+                "/api/auth/register",
                 data=json.dumps(
                     {
                         "first_name": "Test",
@@ -31,7 +31,7 @@ class TestRegistration(BaseTestCase):
         create_new_user("Test", "User", "test@user.com", "0831221362", "testPass123")
         with self.client:
             res = self.client.post(
-                "/auth/register",
+                "/api/auth/register",
                 data=json.dumps(
                     {
                         "first_name": "Test",

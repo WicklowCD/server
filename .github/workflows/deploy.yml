@@ -39,7 +39,7 @@ jobs:
 #        with:
 #          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 #          dokku-host: 'srv2.markrailton.com'
-#          app-name: 'api.wwcd.pw'
+#          api-name: 'api.wwcd.pw'
 #          git-push-flags: '--force'
 #
 #      - name: Create a Sentry.io release

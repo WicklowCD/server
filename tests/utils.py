@@ -2,13 +2,13 @@ from datetime import datetime
 
 from flask_jwt_extended import create_access_token
 
-from app.models.User import create_user
-from app.models.Search import create_new_search
-from app.models.SearchTeam import add_team
-from app.models.SearchLog import new_search_log
-from app.models.RadioAssignment import new_radio_assignment
-from app.models.CommsLog import add_comms_log
-from app import db
+from api.models.User import create_user
+from api.models.Search import create_new_search
+from api.models.SearchTeam import add_team
+from api.models.SearchLog import new_search_log
+from api.models.RadioAssignment import new_radio_assignment
+from api.models.CommsLog import add_comms_log
+from api import db
 
 
 def create_new_user(

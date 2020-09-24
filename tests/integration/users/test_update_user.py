@@ -12,7 +12,7 @@ class TestUpdateUser(BaseTestCase):
         token = authenticate_user(admin)
         with self.client:
             res = self.client.post(
-                f"/users/{user.uuid}/activate",
+                f"/api/users/{user.uuid}/activate",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )
@@ -27,7 +27,7 @@ class TestUpdateUser(BaseTestCase):
         token = authenticate_user(user)
         with self.client:
             res = self.client.post(
-                f"/users/{non_active_user.uuid}/activate",
+                f"/api/users/{non_active_user.uuid}/activate",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )
@@ -42,7 +42,7 @@ class TestUpdateUser(BaseTestCase):
         token = authenticate_user(admin)
         with self.client:
             res = self.client.put(
-                f"/users/{user.uuid}",
+                f"/api/users/{user.uuid}",
                 data=json.dumps(
                     {
                         "first_name": "Updated",

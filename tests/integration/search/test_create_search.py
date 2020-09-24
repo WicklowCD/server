@@ -11,7 +11,7 @@ class TestCreateSearch(BaseTestCase):
         token = authenticate_user(admin)
         with self.client:
             res = self.client.post(
-                "/searches",
+                "/api/searches",
                 data=json.dumps(
                     {
                         "location": "Test Location",

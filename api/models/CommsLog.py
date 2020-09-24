@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime
 
-from app import db
+from api import db
 
 
 class CommsLog(db.Model):

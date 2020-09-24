@@ -1,16 +1,16 @@
 from flask import Blueprint, request, jsonify
 
-from app.models.SearchTeam import add_team, get_team_by_uuid
-from app.models.Search import create_new_search, get_all_searches, get_search_by_uuid
-from app.models.SearchLog import new_search_log, get_search_log_by_uuid
-from app.models.RadioAssignment import new_radio_assignment
-from app.models.CommsLog import add_comms_log
-from app.schemas.search import searches_schema, search_schema
-from app.schemas.search_team import search_teams_schema
-from app.schemas.search_log import search_logs_schema
-from app.schemas.radio_assignment import radio_assignments_schema
-from app.schemas.comms_log import comms_logs_schema
-from app.decorators import admin_required, user_required, write_required
+from api.models.SearchTeam import add_team, get_team_by_uuid
+from api.models.Search import create_new_search, get_all_searches, get_search_by_uuid
+from api.models.SearchLog import new_search_log, get_search_log_by_uuid
+from api.models.RadioAssignment import new_radio_assignment
+from api.models.CommsLog import add_comms_log
+from api.schemas.search import searches_schema, search_schema
+from api.schemas.search_team import search_teams_schema
+from api.schemas.search_log import search_logs_schema
+from api.schemas.radio_assignment import radio_assignments_schema
+from api.schemas.comms_log import comms_logs_schema
+from api.decorators import admin_required, user_required, write_required
 
 bp = Blueprint("searches", __name__)
 

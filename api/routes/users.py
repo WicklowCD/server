@@ -1,8 +1,8 @@
 from flask import Blueprint, jsonify, request
 
-from app.models.User import get_all_users, get_user_by_uuid
-from app.schemas.user import user_schema, users_schema
-from app.decorators import admin_required, user_required
+from api.models.User import get_all_users, get_user_by_uuid
+from api.schemas.user import user_schema, users_schema
+from api.decorators import admin_required, user_required
 
 bp = Blueprint("users", __name__)
 

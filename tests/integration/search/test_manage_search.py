@@ -11,7 +11,7 @@ class TestManageSearch(BaseTestCase):
         search = create_search()
         with self.client:
             res = self.client.get(
-                f"/searches/{search.uuid}",
+                f"/api/searches/{search.uuid}",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )
@@ -27,7 +27,7 @@ class TestManageSearch(BaseTestCase):
         search = create_search()
         with self.client:
             res = self.client.post(
-                f"/searches/{search.uuid}/end",
+                f"/api/searches/{search.uuid}/end",
                 data=json.dumps(
                     {
                         "end_time": "15:00",

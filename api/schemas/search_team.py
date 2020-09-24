@@ -1,5 +1,5 @@
-from app import ma
-from app.models.SearchTeam import SearchTeam
+from api import ma
+from api.models.SearchTeam import SearchTeam
 
 
 class SearchTeamSchema(ma.SQLAlchemySchema):

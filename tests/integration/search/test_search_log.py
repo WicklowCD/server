@@ -17,7 +17,7 @@ class TestSearchLogs(BaseTestCase):
 
         with self.client:
             res = self.client.post(
-                f"/searches/{search.uuid}/logs/search",
+                f"/api/searches/{search.uuid}/logs/search",
                 data=json.dumps(
                     {
                         "team": "Team 1",
@@ -40,7 +40,7 @@ class TestSearchLogs(BaseTestCase):
 
         with self.client:
             res = self.client.get(
-                f"/searches/{search.uuid}/logs/search",
+                f"/api/searches/{search.uuid}/logs/search",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )
@@ -58,7 +58,7 @@ class TestSearchLogs(BaseTestCase):
 
         with self.client:
             res = self.client.put(
-                f"/searches/{search.uuid}/logs/search/{log.uuid}",
+                f"/api/searches/{search.uuid}/logs/search/{log.uuid}",
                 data=json.dumps(
                     {
                         "team": log.team,

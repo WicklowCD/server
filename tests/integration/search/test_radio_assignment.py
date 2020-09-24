@@ -17,7 +17,7 @@ class TestRadioAssignment(BaseTestCase):
 
         with self.client:
             res = self.client.post(
-                f"/searches/{search.uuid}/radios",
+                f"/api/searches/{search.uuid}/radios",
                 data=json.dumps(
                     {"call_sign": "WW01", "tetra_number": "53831", "name": "Test User"}
                 ),
@@ -37,7 +37,7 @@ class TestRadioAssignment(BaseTestCase):
 
         with self.client:
             res = self.client.get(
-                f"/searches/{search.uuid}/radios",
+                f"/api/searches/{search.uuid}/radios",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )

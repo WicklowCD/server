@@ -3,7 +3,7 @@ from datetime import timedelta
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import create_access_token
 
-from app.models.User import create_user, get_user_by_email
+from api.models.User import create_user, get_user_by_email
 
 bp = Blueprint("auth", __name__)
 

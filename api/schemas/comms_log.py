@@ -1,5 +1,5 @@
-from app import ma
-from app.models.CommsLog import CommsLog
+from api import ma
+from api.models.CommsLog import CommsLog
 
 
 class CommsLogSchema(ma.SQLAlchemySchema):

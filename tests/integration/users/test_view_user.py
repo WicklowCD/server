@@ -12,7 +12,7 @@ class TestViewUser(BaseTestCase):
         token = authenticate_user(admin)
         with self.client:
             res = self.client.get(
-                f"/users/{user.uuid}",
+                f"/api/users/{user.uuid}",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )
@@ -29,7 +29,7 @@ class TestViewUser(BaseTestCase):
         )
         with self.client:
             res = self.client.get(
-                f"/users/{user.uuid}",
+                f"/api/users/{user.uuid}",
                 content_type="application/json",
             )
 

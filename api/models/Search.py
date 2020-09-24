@@ -1,11 +1,11 @@
 import uuid
 from datetime import datetime
 
-from app import db
-from app.models.SearchTeam import SearchTeam
-from app.models.RadioAssignment import RadioAssignment
-from app.models.SearchLog import SearchLog
-from app.models.CommsLog import CommsLog
+from api import db
+from api.models.SearchTeam import SearchTeam
+from api.models.RadioAssignment import RadioAssignment
+from api.models.SearchLog import SearchLog
+from api.models.CommsLog import CommsLog
 
 
 class Search(db.Model):

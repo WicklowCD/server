@@ -16,7 +16,7 @@ class TestSearchTeam(BaseTestCase):
         search = create_search()
         with self.client:
             res = self.client.post(
-                f"/searches/{search.uuid}/teams",
+                f"/api/searches/{search.uuid}/teams",
                 data=json.dumps(
                     {
                         "team_leader": "Team Leader",
@@ -38,7 +38,7 @@ class TestSearchTeam(BaseTestCase):
         search = create_search()
         with self.client:
             team_res = self.client.post(
-                f"/searches/{search.uuid}/teams",
+                f"/api/searches/{search.uuid}/teams",
                 data=json.dumps(
                     {
                         "team_leader": "Team Leader",
@@ -54,7 +54,7 @@ class TestSearchTeam(BaseTestCase):
             team = json.loads(team_res.data.decode())
 
             res = self.client.get(
-                f"/searches/{search.uuid}/teams",
+                f"/api/searches/{search.uuid}/teams",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )
@@ -71,7 +71,7 @@ class TestSearchTeam(BaseTestCase):
 
         with self.client:
             res = self.client.put(
-                f"/searches/{search.uuid}/teams/{search_team.uuid}",
+                f"/api/searches/{search.uuid}/teams/{search_team.uuid}",
                 data=json.dumps(
                     {
                         "name": search_team.name,

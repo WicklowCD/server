@@ -1,9 +1,9 @@
-from app import ma
-from app.models.Search import Search
-from app.schemas.search_team import search_teams_schema
-from app.schemas.search_log import search_logs_schema
-from app.schemas.radio_assignment import radio_assignments_schema
-from app.schemas.comms_log import comms_logs_schema
+from api import ma
+from api.models.Search import Search
+from api.schemas.search_team import search_teams_schema
+from api.schemas.search_log import search_logs_schema
+from api.schemas.radio_assignment import radio_assignments_schema
+from api.schemas.comms_log import comms_logs_schema
 
 
 class SearchSchema(ma.SQLAlchemySchema):

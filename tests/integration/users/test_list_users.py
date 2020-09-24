@@ -11,7 +11,7 @@ class TestListUsers(BaseTestCase):
         token = authenticate_user(admin)
         with self.client:
             res = self.client.get(
-                "/users", headers={"Authorization": f"Bearer {token}"}
+                "/api/users", headers={"Authorization": f"Bearer {token}"}
             )
             data = json.loads(res.data.decode())
 
@@ -24,7 +24,7 @@ class TestListUsers(BaseTestCase):
         token = authenticate_user(user)
         with self.client:
             res = self.client.get(
-                "/users",
+                "/api/users",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )

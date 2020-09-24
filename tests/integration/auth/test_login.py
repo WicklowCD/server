@@ -8,7 +8,7 @@ class TestLogin(BaseTestCase):
         create_new_user("Test", "User", "test@user.com", "0831221362", "testPass123")
         with self.client:
             res = self.client.post(
-                "/auth/login",
+                "/api/auth/login",
                 data=json.dumps(
                     {
                         "email": "test@user.com",
@@ -27,7 +27,7 @@ class TestLogin(BaseTestCase):
         create_new_user("Test", "User", "test@user.com", "0831221362", "testPass123")
         with self.client:
             res = self.client.post(
-                "/auth/login",
+                "/api/auth/login",
                 data=json.dumps(
                     {
                         "email": "test@user.com",
@@ -45,7 +45,7 @@ class TestLogin(BaseTestCase):
     def test_non_registered_user_can_not_login(self):
         with self.client:
             res = self.client.post(
-                "/auth/login",
+                "/api/auth/login",
                 data=json.dumps(
                     {
                         "email": "test@user.com",
@@ -66,7 +66,7 @@ class TestLogin(BaseTestCase):
         )
         with self.client:
             res = self.client.post(
-                "/auth/login",
+                "/api/auth/login",
                 data=json.dumps(
                     {
                         "email": "test@user.com",

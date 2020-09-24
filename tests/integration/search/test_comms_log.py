@@ -17,7 +17,7 @@ class TestCommsLog(BaseTestCase):
 
         with self.client:
             res = self.client.post(
-                f"/searches/{search.uuid}/logs/comms",
+                f"/api/searches/{search.uuid}/logs/comms",
                 data=json.dumps(
                     {
                         "time": "12:00",
@@ -42,7 +42,7 @@ class TestCommsLog(BaseTestCase):
 
         with self.client:
             res = self.client.get(
-                f"/searches/{search.uuid}/logs/comms",
+                f"/api/searches/{search.uuid}/logs/comms",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )

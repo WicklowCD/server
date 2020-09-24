@@ -13,7 +13,7 @@ class TestListSearches(BaseTestCase):
 
         with self.client:
             res = self.client.get(
-                "/searches",
+                "/api/searches",
                 content_type="application/json",
                 headers={"Authorization": f"Bearer {token}"},
             )
