@@ -6,20 +6,29 @@ verify_ssl = true
 [dev-packages]
 flask-testing = "*"
 pytest-flask = "*"
+pytest = "*"
+coverage = "*"
+pytest-cov = "*"
+black = "*"
 
 [packages]
-flask = "*"
-flask-sqlalchemy = "*"
-flask-migrate = "*"
-python-dotenv = "*"
-flask-bcrypt = "*"
-gunicorn = "*"
-flask-cors = "*"
-flask-jwt-extended = "*"
-pyjwt = "*"
-marshmallow-sqlalchemy = "*"
+blinker = "*"
 flask-marshmallow = "*"
-psycopg2-binary = "*"
+gunicorn = "*"
+marshmallow-sqlalchemy = "*"
+python-dotenv = "*"
+sentry-sdk = "*"
+Flask = "*"
+Flask-Bcrypt = "*"
+Flask-Cors = "*"
+Flask-JWT-Extended = "*"
+Flask-Migrate = "*"
+Flask-SQLAlchemy = "*"
+PyJWT = "*"
+mysql = "*"
 
 [requires]
 python_version = "3.8"
+
+[pipenv]
+allow_prereleases = true

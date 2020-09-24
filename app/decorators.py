@@ -8,7 +8,7 @@ def admin_required(fn):
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
         claims = get_jwt_claims()
-        if claims['role'] != 'Admin':
+        if claims["role"] != "Admin":
             abort(403)
         else:
             return fn(*args, **kwargs)
@@ -21,7 +21,7 @@ def write_required(fn):
     def wrapper(*args, **kwargs):
         verify_jwt_in_request()
         claims = get_jwt_claims()
-        if claims['role'] != 'Admin' and claims['role'] != 'Write':
+        if claims["role"] != "Admin" and claims["role"] != "Write":
             abort(403)
         else:
             return fn(*args, **kwargs)
