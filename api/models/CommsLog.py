@@ -14,10 +14,10 @@ class CommsLog(db.Model):
     call_sign = db.Column(db.String(10))
     message = db.Column(db.Text)
     action = db.Column(db.Text)
-    # updated_at = db.Column(
-    #     db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
-    # )
-    # created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(
+        db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow
+    )
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
     def __init__(self, search, time, call_sign, message, action):
         self.uuid = str(uuid.uuid4())

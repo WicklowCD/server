@@ -2,10 +2,6 @@ import uuid
 from datetime import datetime
 
 from api import db
-from api.models.SearchTeam import SearchTeam
-from api.models.RadioAssignment import RadioAssignment
-from api.models.SearchLog import SearchLog
-from api.models.CommsLog import CommsLog
 
 
 class Search(db.Model):
