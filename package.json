@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "install": "cd client && npm install",
+    "build": "cd client && react-scripts build",
+    "heroku-postbuild": "npm run build"
+  }
+}
