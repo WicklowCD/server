@@ -47,7 +47,7 @@ def authenticate_user(user):
 def create_search():
     return create_new_search(
         "Test Location",
-        str(datetime.utcnow()),
+        datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
         datetime.utcnow().strftime("%H:%M"),
         "Incident",
         "Commanding Officer",

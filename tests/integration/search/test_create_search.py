@@ -15,7 +15,7 @@ class TestCreateSearch(BaseTestCase):
                 data=json.dumps(
                     {
                         "location": "Test Location",
-                        "date": str(datetime.today()),
+                        "date": datetime.today().strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
                         "start_time": datetime.utcnow().strftime("%H:%M"),
                         "type": "Incident",
                         "oic": "Commanding Officer",
