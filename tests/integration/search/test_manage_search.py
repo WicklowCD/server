@@ -11,15 +11,15 @@ class TestManageSearch(BaseTestCase):
         search = create_search()
         with self.client:
             res = self.client.get(
-                f'/searches/{search.uuid}',
-                content_type='application/json',
-                headers={'Authorization': f'Bearer {token}'}
+                f"/api/searches/{search.uuid}",
+                content_type="application/json",
+                headers={"Authorization": f"Bearer {token}"},
             )
             data = json.loads(res.data.decode())
 
             self.assert200(res)
-            self.assertEqual(search.location, data['location'])
-            self.assertEqual(search.oic, data['oic'])
+            self.assertEqual(search.location, data["location"])
+            self.assertEqual(search.oic, data["oic"])
 
     def test_admin_can_end_a_search(self):
         admin = create_admin_user()
@@ -27,13 +27,15 @@ class TestManageSearch(BaseTestCase):
         search = create_search()
         with self.client:
             res = self.client.post(
-                f'/searches/{search.uuid}/end',
-                data=json.dumps({
-                    'end_time': '15:00',
-                    'notes': 'Nothing to note',
-                }),
-                content_type='application/json',
-                headers={'Authorization': f'Bearer {token}'}
+                f"/api/searches/{search.uuid}/end",
+                data=json.dumps(
+                    {
+                        "end_time": "15:00",
+                        "notes": "Nothing to note",
+                    }
+                ),
+                content_type="application/json",
+                headers={"Authorization": f"Bearer {token}"},
             )
 
             self.assertEqual(202, res.status_code)

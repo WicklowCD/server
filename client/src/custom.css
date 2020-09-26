@@ -1,0 +1,8 @@
+.rc-time-picker {
+    display: block;
+}
+
+.rc-time-picker-input {
+    display: block;
+    height: 2.5rem;
+}
